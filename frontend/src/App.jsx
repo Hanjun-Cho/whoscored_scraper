@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Chalkboard from './Chalkboard';
-import Search from '../Search';
+import Search from './Search';
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 

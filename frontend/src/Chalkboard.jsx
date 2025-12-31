@@ -14,7 +14,10 @@ function Chalkboard(props) {
     }
   }, []);
 
-  if (!props.matchData) {
+  if (!props.matchData || props.matchData["status"] == "FAIL") {
+    if(props.matchData) {
+      console.log(props.matchData["message"]);
+    }
     return <Navigate to="/"/>
   }
 
