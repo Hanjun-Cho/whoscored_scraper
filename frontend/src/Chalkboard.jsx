@@ -12,7 +12,7 @@ function getPasses(data) {
 
 function Chalkboard(props) {
   const pitchContainerRef = useRef(null);
-  const [pitchContainerRect, setPitchContainerRect] = useState({'height': 0});
+  const [pitchContainerRect, setPitchContainerRect] = useState({'width': 0, 'height': 0});
   const [passData, setPassData] = useState([]);
   const windowDimensions = useWindowDimension();
 
@@ -31,11 +31,19 @@ function Chalkboard(props) {
     }
     return <Navigate to="/"/>
   }
+
   return (
-    <div ref={pitchContainerRef} className="chalkboard-container">
-      <Pitch window={windowDimensions} pitchContainerRect={pitchContainerRect} passData={passData} playerData={props.matchData['matchCentreData']['playerIdNameDictionary']}/>
-      <h1>{props.matchData["matchCentreData"]["home"]["name"]}</h1>
-      <h1>{props.matchData["matchCentreData"]["away"]["name"]}</h1>
+    <div className='chalkboard-container' style={{
+      display: 'grid',
+      gridTemplateColumns: `calc((${windowDimensions.height}px - var(--WEBSITE_BORDER_SPACING)) * (65/105)) auto`,
+    }}>
+      <div ref={pitchContainerRef} className="pitch-outer-container">
+        <Pitch window={windowDimensions} pitchContainerRect={pitchContainerRect} passData={passData} playerData={props.matchData['matchCentreData']['playerIdNameDictionary']}/>
+      </div>
+      <div>
+        <h1>{props.matchData["matchCentreData"]["home"]["name"]}</h1>
+        <h1>{props.matchData["matchCentreData"]["away"]["name"]}</h1>
+      </div>
     </div>
   );
 }

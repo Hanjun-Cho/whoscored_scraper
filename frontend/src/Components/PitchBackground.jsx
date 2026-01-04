@@ -9,16 +9,12 @@ function PitchBackgroud() {
           <div className='pitch-top-6yd pitch-6yd-box'/>
           <div className='pitch-penalty-spot pitch-top-spot'/>
         </div>
-        <div className='pitch-top-left-corner pitch-corner'/>
-        <div className='pitch-top-right-corner pitch-corner'/>
       </div>
       <div className='pitch-background pitch-bottom-side'>
         <div className='pitch-bottom-18yd pitch-18yd-box'>
           <div className='pitch-bottom-6yd pitch-6yd-box'/>
           <div className='pitch-penalty-spot pitch-bottom-spot'/>
         </div>
-        <div className='pitch-bottom-left-corner pitch-corner'/>
-        <div className='pitch-bottom-right-corner pitch-corner'/>
       </div>
     </div>
     <div className='pitch-center-circle'></div>

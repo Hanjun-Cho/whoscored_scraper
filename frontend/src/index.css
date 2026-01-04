@@ -12,6 +12,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --BACKGROUND: #141414;
+  --WEBSITE_BORDER_SPACING: 60px;
   background-color: var(--BACKGROUND);
 }
 

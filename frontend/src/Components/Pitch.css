@@ -5,7 +5,7 @@
 }
 
 .pitch {
-  height: calc(100% - 60px);
+  height: calc(100% - var(--WEBSITE_BORDER_SPACING));
   aspect-ratio: 65/105;
   position: relative;
   overflow: visible;
@@ -52,47 +52,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-45%, -45%);
-}
-
-.pitch-corner {
-  width: calc(100% * (2/105));
-  aspect-ratio: 1;
-  border: solid transparent;
-  border-width: 3px;
-  border-radius: 100%;
-}
-
-.pitch-top-left-corner {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  border-right: solid white;
-  border-bottom: solid white;
-}
-
-.pitch-top-right-corner {
-  position: absolute;
-  left: 100%;
-  top: 0%;
-  transform: translate(-50%, -50%);
-  border-left: solid white;
-  border-bottom: solid white;
-}
-
-.pitch-bottom-left-corner {
-  position: absolute;
-  top: 100%;
-  border-right: solid white;
-  border-top: solid white;
-  transform: translate(-50%, -50%);
-}
-
-.pitch-bottom-right-corner {
-  position: absolute;
-  top: 100%;
-  left: 100%;
-  border-left: solid white;
-  border-top: solid white;
-  transform: translate(-50%, -50%);
 }
 
 .pitch-18yd-box {

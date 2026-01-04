@@ -1,6 +1,12 @@
-.chalkboard-container {
-  position: absolute;
-  width: 100%;
+.pitch-outer-container {
+  width: max-content;
   height: 100%;
   display: flex;
+}
+
+.chalkboard-container {
+  position: relative;
+  width: calc(100% - var(--WEBSITE_BORDER_SPACING));
+  margin: 0 auto;
+  height: 100%;
 }
