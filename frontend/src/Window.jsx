@@ -7,6 +7,7 @@ export const WINDOW = {
 
 function getWindowDimension() {
   const { innerWidth: width, innerHeight: height} = window;
+  console.log(width, height);
   return { width, height };
 }
 
@@ -19,7 +20,6 @@ export default function Window() {
     }
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-
   }, []);
 
   return windowDimensions;

@@ -1,13 +1,22 @@
 import './Pitch.css';
 import "https://d3js.org/d3.v7.min.js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
+function createToolTip() {
+  const tooltip = document.createElement("div");
+  tooltip.style.position = "absolute";
+  tooltip.style.pointerEvents = "none";
+  tooltip.style.background = "rgba(0,0,0,0.7)";
+  tooltip.style.color = "white";
+  tooltip.style.padding = "4px 8px";
+  tooltip.style.borderRadius = "4px";
+  tooltip.style.fontSize = "12px";
+  tooltip.style.display = "none";
+  return tooltip;
+}
 
-function createArrowChart(data, playerData, {
-  width = 400,
-  height = 300,
-} = {}) {
-  const relative = height / 100;
+function createArrowChart(data, playerData, pitchRect) {
+  const relative = pitchRect.height / 100;
 
   if (!data || !Array.isArray(data)) {
     console.error('createArrowChart: data must be an array');
@@ -19,22 +28,12 @@ function createArrowChart(data, playerData, {
   container.style.position = "relative";
 
   // Tooltip
-  const tooltip = document.createElement("div");
-  tooltip.style.position = "absolute";
-  tooltip.style.pointerEvents = "none";
-  tooltip.style.background = "rgba(0,0,0,0.7)";
-  tooltip.style.color = "white";
-  tooltip.style.padding = "4px 8px";
-  tooltip.style.borderRadius = "4px";
-  tooltip.style.fontSize = "12px";
-  tooltip.style.display = "none";
-  container.appendChild(tooltip);
+  container.appendChild(createToolTip());
 
   // SVG
-  const svg = d3.select(container)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+  const svg = d3.select(container).append("svg");
+  svg.attr("width", pitchRect.width);
+  svg.attr("height", pitchRect.height);
 
   // Arrow marker definition
   const defs = svg.append("defs");
@@ -125,42 +124,26 @@ function createArrowChart(data, playerData, {
   return container;
 }
 
-
-
-
 function PassMap(props) {
-  const ref = useRef(null);
-  const [size, setSize] = useState({ width: 0, height: 0 });
-
   useEffect(() => {
-    if (!ref.current) return;
+    if (!props.passData || !props.playerData || !props.pitchRect) return;
+    const chart = createArrowChart(props.passData, props.playerData, props.pitchRect);
+    const map = document.getElementById('map');
+    map.innerHTML = "";
+    map.append(chart);
 
-    const rect = ref.current.getBoundingClientRect();
-    setSize({
-      width: rect.width,
-      height: rect.height
-    });
-  }, []);
+    console.log(props.pitchRect, chart);
+  }, [props.passData, props.pitchRect]);
 
-  useEffect(() => {
-    if (!size.width || !size.height) return;
-
-    const chart = createArrowChart(props.passData, props.playerData, size);
-    ref.current.innerHTML = "";
-    ref.current.append(chart);
-  }, [props.passData, size]);
+  const passMapStyle = {
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%"
+  }
 
   return (
-    <div
-      id = 'map'
-      ref={ref}
-      style={{
-        position: "absolute",
-        inset: 0,
-        width: "100%",
-        height: "100%"
-      }}
-    />
+    <div id = 'map' style={passMapStyle}/>
   );
 }
 
