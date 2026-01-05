@@ -25,6 +25,7 @@ function Pitch(props) {
       <PassMap 
         passData={props.passData} 
         playerData={props.playerData}
+        teamData={props.teamData}
         pitchRect={pitchRect}
       />
     </div>
