@@ -4,7 +4,7 @@ import SquadListPlayer from "./SquadListPlayer";
 
 function SquadList(props) {
   useEffect(() => {
-    console.log(props.squadList)
+    //console.log(props.squadList)
   }, [props.squadList]);
 
   return (

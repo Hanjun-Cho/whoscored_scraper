@@ -75,7 +75,7 @@ function createToolTip() {
 }
 
 
-function createArrowChart(passData, playerData, pitchRect, teamData) {
+function createArrowChart(passData, playerData, pitchRect, teamData, selectedPlayers) {
 
   const relative_height = pitchRect.height / 100;
   const relative_width = pitchRect.width / 100;
@@ -104,8 +104,10 @@ function createArrowChart(passData, playerData, pitchRect, teamData) {
 
   //const data = passData['Pass'];
   //data.push(...offsides);
+  let data = offsides;
 
-  const data = offsides;
+  data = data.filter(d => selectedPlayers.includes(d.playerId));
+  
 
   if (!data || !Array.isArray(data)) {
     console.error('createArrowChart: data must be an array');
@@ -360,13 +362,16 @@ function createArrowChart(passData, playerData, pitchRect, teamData) {
 }
 
 function PassMap(props) {
+  
   useEffect(() => {
+    console.log(props.selectedPlayers);
     if (!props.passData || !props.teamData || !props.playerData || !props.pitchRect) return;
-    const chart = createArrowChart(props.passData, props.playerData, props.pitchRect, props.teamData);
+    
+    const chart = createArrowChart(props.passData, props.playerData, props.pitchRect, props.teamData, props.selectedPlayers);
     const map = document.getElementById('map');
     map.innerHTML = "";
     map.append(chart);
-  }, [props.passData, props.pitchRect]);
+  }, [props.passData, props.pitchRect, props.selectedPlayers]);
 
   const passMapStyle = {
     position: "absolute",

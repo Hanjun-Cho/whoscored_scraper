@@ -14,6 +14,10 @@ function Pitch(props) {
     }
   }, [props.window]);
 
+  useEffect(() => {
+    console.log("x", props.selectedPlayers)
+  }, [props.selectedPlayers])
+
   const style = {
     left: ((props.pitchContainerRect.height - pitchRect.height) / 2) + 'px',
   }
@@ -25,6 +29,7 @@ function Pitch(props) {
         passData={props.passData} 
         playerData={props.playerData}
         teamData={props.teamData}
+        selectedPlayers={props.selectedPlayers}
         pitchRect={pitchRect}
       />
     </div>
