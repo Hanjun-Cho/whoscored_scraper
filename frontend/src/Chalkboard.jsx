@@ -7,8 +7,21 @@ import SquadList from './Components/SquadList';
 
 function getPasses(data) {
   console.log(data);
+  const allPasses = {};
   const pass = data['matchCentreData']['events'].filter(type => type['type']['displayName'] === "Pass");
-  return pass;
+  const offside = data['matchCentreData']['events'].filter(type => type['type']['displayName'] === "OffsidePass");
+  const blocked = data['matchCentreData']['events'].filter(type => type['type']['displayName'] === "BlockedPass");
+  allPasses['Pass'] = pass;
+  allPasses['Offside'] = offside;
+  allPasses['Blocked'] = blocked;
+  return allPasses;
+}
+
+function getTeams(data) {
+  const team = {}
+  team['home'] = data['matchCentreData']['home'];
+  team['away'] = data['matchCentreData']['away'];
+  return team;
 }
 
 function getSquadList(data, isHome) {
@@ -19,7 +32,8 @@ function getSquadList(data, isHome) {
 function Chalkboard(props) {
   const pitchContainerRef = useRef(null);
   const [pitchContainerRect, setPitchContainerRect] = useState({'width': 0, 'height': 0});
-  const [passData, setPassData] = useState([]);
+  const [passData, setPassData] = useState(null);
+  const [teamData, setTeamData] = useState(null);
   const [homeSquadList, setHomeSquadList] = useState([]);
   const [awaySquadList, setAwaySquadList] = useState([]);
   const windowDimensions = useWindowDimension();
@@ -31,6 +45,7 @@ function Chalkboard(props) {
     }
     if(props.matchData){
       setPassData(getPasses(props.matchData));
+      setTeamData(getTeams(props.matchData));
       setHomeSquadList(getSquadList(props.matchData, true));
       setAwaySquadList(getSquadList(props.matchData, false));
     }
@@ -69,7 +84,7 @@ function Chalkboard(props) {
       gridTemplateColumns: `calc((${windowDimensions.height}px - var(--WEBSITE_BORDER_SPACING)) * (65/105)) auto`,
     }}>
       <div ref={pitchContainerRef} className="pitch-outer-container">
-        <Pitch window={windowDimensions} pitchContainerRect={pitchContainerRect} passData={passData} playerData={props.matchData['matchCentreData']['playerIdNameDictionary']}/>
+        <Pitch window={windowDimensions} pitchContainerRect={pitchContainerRect} passData={passData} teamData={teamData} playerData={props.matchData['matchCentreData']['playerIdNameDictionary']}/>
       </div>
       <div>
         <SquadList 

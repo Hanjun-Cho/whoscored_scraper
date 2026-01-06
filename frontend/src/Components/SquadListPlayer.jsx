@@ -11,6 +11,7 @@ function SquadListPlayer(props) {
     else {
       props.selectPlayer(props.data["playerId"]);
     }
+    setMouseEntered(false);
   }
 
   return (
@@ -19,7 +20,7 @@ function SquadListPlayer(props) {
       onMouseLeave={() => setMouseEntered(false)} 
       onMouseDown={() => selectPlayer()}
       style={{
-        backgroundColor: (mouseEntered || props.isSelected(props.data['playerId'])) ? elementColor : 'black'
+        backgroundColor: (props.isSelected(props.data['playerId'])) ? (mouseEntered ? 'yellow' : elementColor) : (mouseEntered ? 'yellow' : 'black')
       }}
     >
       <p>{props.data["name"]}</p>
